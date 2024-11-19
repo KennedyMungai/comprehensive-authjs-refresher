@@ -6,3 +6,13 @@ export const LoginSchema = z.object({
 });
 
 export type LoginType = z.infer<typeof LoginSchema>;
+
+export const SignupSchema = LoginSchema.extend({
+  name: z.string().min(1, "Name is required"),
+  confirmPassword: z.string().min(1, "Confirm Password is required"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});
+
+export type SignupType = z.infer<typeof SignupSchema>;
