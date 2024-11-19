@@ -1,3 +1,4 @@
+import LoginButton from "@/components/login-button";
 import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
@@ -9,9 +10,11 @@ const HomePage = () => {
         </h1>
         <p className="text-lg text-white">A simple authentication service</p>
         <div>
-          <Button variant={"secondary"} size="lg">
-            Sign in
-          </Button>
+          <LoginButton>
+            <Button variant={"secondary"} size="lg">
+              Sign in
+            </Button>
+          </LoginButton>
         </div>
       </div>
     </main>
