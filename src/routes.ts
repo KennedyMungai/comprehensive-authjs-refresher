@@ -12,7 +12,7 @@ export const publicRoutes = ["/"];
 export const authRoutes = ["/auth/signin", "/auth/signup"];
 
 /**
- * The prefix of all api routes
+ * The prefix of all api authentication routes
  *
  * @type {string}
  */
