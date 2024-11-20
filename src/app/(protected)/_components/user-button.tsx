@@ -24,10 +24,10 @@ const UserButton = () => {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem>
-          <form action={signOutAction}>
-            <Button>Sign Out</Button>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem className="w-full p-0">
+          <form action={signOutAction} className="w-full">
+            <Button className="w-full">Sign Out</Button>
           </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
