@@ -1,6 +1,6 @@
 "use client";
 
-import { loginAction } from "@/app/(auth)/signin/_actions/login-action";
+import { loginAction } from "@/app/(auth)/signin/_actions/signin-action";
 import CardWrapper from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
