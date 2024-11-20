@@ -1,8 +1,8 @@
-import Credentials from "next-auth/providers/credentials";
-import type { NextAuthConfig } from "next-auth";
-import { SigninSchema, SigninType } from "@/lib/validation";
 import { findUserByEmail } from "@/lib/user-queries";
+import { SigninSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
+import type { NextAuthConfig } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
