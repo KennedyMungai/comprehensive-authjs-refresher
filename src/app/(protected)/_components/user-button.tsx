@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { UserIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 const UserButton = () => {
@@ -20,7 +21,7 @@ const UserButton = () => {
         <Avatar>
           <AvatarImage src={session?.data?.user?.image ?? ""} />
           <AvatarFallback>
-            {session.data?.user?.name?.charAt(0) ?? "U"}
+            <UserIcon className="size-5" />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
