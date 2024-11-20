@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginSchema, LoginType } from "@/lib/validation";
+import { SigninSchema, SigninType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
@@ -24,15 +24,15 @@ const SigninForm = () => {
     onError: () => toast.error("Login failed"),
   });
 
-  const form = useForm<LoginType>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<SigninType>({
+    resolver: zodResolver(SigninSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: LoginType) => {
+  const onSubmit = async (data: SigninType) => {
     execute(data);
 
     form.reset();
