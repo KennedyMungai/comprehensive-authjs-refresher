@@ -6,6 +6,13 @@ import NextAuth from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
+    // async signIn({ user }) {
+    //   const existingUser = await findUserById(user.id!);
+
+    //   if (!existingUser || !existingUser.emailVerified) return false;
+
+    //   return true;
+    // },
     async jwt({ token }) {
       if (!token.sub) return token;
 
