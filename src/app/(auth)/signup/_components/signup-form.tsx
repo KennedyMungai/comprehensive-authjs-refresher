@@ -29,7 +29,7 @@ const SignupForm = () => {
     },
   });
 
-  const { execute } = useAction(registerAction, {
+  const { execute, isExecuting } = useAction(registerAction, {
     onSuccess: () => {
       toast.success("Confirmation email sent");
       form.reset();
@@ -60,7 +60,7 @@ const SignupForm = () => {
                     {...field}
                     type="text"
                     placeholder="Enter name"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -78,7 +78,7 @@ const SignupForm = () => {
                     {...field}
                     type="email"
                     placeholder="Enter email"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -96,7 +96,7 @@ const SignupForm = () => {
                     {...field}
                     type="password"
                     placeholder="Enter password"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -114,7 +114,7 @@ const SignupForm = () => {
                     {...field}
                     type="password"
                     placeholder="Enter password"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -122,7 +122,7 @@ const SignupForm = () => {
             )}
           />
           <Button
-            disabled={form.formState.isSubmitting}
+            disabled={form.formState.isSubmitting || isExecuting}
             type="submit"
             className="w-full"
           >

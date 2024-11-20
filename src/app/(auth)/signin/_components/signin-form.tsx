@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const SigninForm = () => {
-  const { execute } = useAction(loginAction, {
+  const { execute, isExecuting } = useAction(loginAction, {
     onSuccess: () => toast.success("Login successful"),
     onError: () => toast.error("Login failed"),
   });
@@ -58,7 +58,7 @@ const SigninForm = () => {
                     {...field}
                     type="email"
                     placeholder="Enter email"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -76,7 +76,7 @@ const SigninForm = () => {
                     {...field}
                     type="password"
                     placeholder="Enter password"
-                    disabled={form.formState.isSubmitting}
+                    disabled={form.formState.isSubmitting || isExecuting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -84,7 +84,7 @@ const SigninForm = () => {
             )}
           />
           <Button
-            disabled={form.formState.isSubmitting}
+            disabled={form.formState.isSubmitting || isExecuting}
             type="submit"
             className="w-full"
           >
