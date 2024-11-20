@@ -1,6 +1,5 @@
 "use client";
 
-import { loginAction } from "@/app/(auth)/signin/_actions/login-action";
 import CardWrapper from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,30 +11,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginSchema, LoginType } from "@/lib/validation";
+import { SignupSchema, SignupType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
-const SigninForm = () => {
-  const { execute } = useAction(loginAction, {
-    onSuccess: () => toast.success("Login successful"),
-    onError: () => toast.error("Login failed"),
-  });
-
-  const form = useForm<LoginType>({
-    resolver: zodResolver(LoginSchema),
+const SignupForm = () => {
+  const form = useForm<SignupType>({
+    resolver: zodResolver(SignupSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (data: LoginType) => {
-    execute(data);
-
-    form.reset();
+  const onSubmit = async (values: SignupType) => {
+    console.log(values);
   };
 
   return (
@@ -47,6 +39,24 @@ const SigninForm = () => {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="text"
+                    placeholder="Enter name"
+                    disabled={form.formState.isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -83,12 +93,30 @@ const SigninForm = () => {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="password"
+                    placeholder="Enter password"
+                    disabled={form.formState.isSubmitting}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button
             disabled={form.formState.isSubmitting}
             type="submit"
             className="w-full"
           >
-            Login
+            Register
           </Button>
         </form>
       </Form>
@@ -96,4 +124,4 @@ const SigninForm = () => {
   );
 };
 
-export default SigninForm;
+export default SignupForm;
