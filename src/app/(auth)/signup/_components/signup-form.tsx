@@ -1,5 +1,6 @@
 "use client";
 
+import { registerAction } from "@/app/(auth)/signup/_actions/register-action";
 import CardWrapper from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { SignupSchema, SignupType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const SignupForm = () => {
   const form = useForm<SignupType>({
@@ -26,8 +29,15 @@ const SignupForm = () => {
     },
   });
 
+  const { execute } = useAction(registerAction, {
+    onSuccess: () => {
+      toast.success("Confirmation email sent");
+      form.reset();
+    },
+    onError: () => toast.error("Failed to register"),
+  });
   const onSubmit = async (values: SignupType) => {
-    console.log(values);
+    execute(values);
   };
 
   return (
