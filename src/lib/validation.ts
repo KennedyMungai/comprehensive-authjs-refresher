@@ -16,3 +16,9 @@ export const SignupSchema = SigninSchema.extend({
 });
 
 export type SignupType = z.infer<typeof SignupSchema>;
+
+export const SocialsSchema = z.object({
+  provider: z.enum(["google", "github"]),
+});
+
+export type SocialsType = z.infer<typeof SocialsSchema>;
