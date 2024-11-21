@@ -46,7 +46,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         .where(eq(users.id, user.id!));
     },
   },
-  pages: { signIn: "/signin" },
+  pages: { signIn: "/signin", error: "/error" },
   adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
   ...authConfig,
