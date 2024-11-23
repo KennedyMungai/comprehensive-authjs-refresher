@@ -3,7 +3,7 @@ import { db } from "@/db";
 import { findUserById } from "@/lib/user-queries";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
-import { users } from "./db/schema";
+import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
