@@ -1,20 +1,20 @@
 import authConfig from "@/auth.config";
 import { db } from "@/db";
+import { users } from "@/db/schema";
 import { findUserById } from "@/lib/user-queries";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import NextAuth from "next-auth";
-import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import NextAuth from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
-    // async signIn({ user }) {
-    //   const existingUser = await findUserById(user.id!);
+    async signIn({ user }) {
+      const existingUser = await findUserById(user.id!);
 
-    //   if (!existingUser || !existingUser.emailVerified) return false;
+      if (!existingUser || !existingUser.emailVerified) return false;
 
-    //   return true;
-    // },
+      return true;
+    },
     async jwt({ token }) {
       if (!token.sub) return token;
 
