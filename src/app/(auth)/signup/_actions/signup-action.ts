@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
+import { generateVerificationToken } from "@/lib/tokens";
 import { findUserByEmail } from "@/lib/user-queries";
 import { SignupSchema } from "@/lib/validation";
 import bcrypt from "bcryptjs";
@@ -29,6 +30,10 @@ export const registerAction = actionClient
           password: hashedPassword,
         })
         .returning();
+
+      if (!newUser) throw new Error("Something went wrong");
+
+      const verificationToken = await generateVerificationToken(newUser.email!);
 
       // TODO: Send email verification token
 
