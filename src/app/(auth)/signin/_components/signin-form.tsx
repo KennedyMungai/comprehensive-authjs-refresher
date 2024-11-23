@@ -15,10 +15,17 @@ import { Input } from "@/components/ui/input";
 import { SigninSchema, SigninType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 const SigninForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with a different provider"
+      : "";
+
   const { execute, isExecuting } = useAction(loginAction, {
     onSuccess: () => toast.success("Login successful"),
     onError: () => toast.error("Login failed"),
@@ -83,6 +90,11 @@ const SigninForm = () => {
               </FormItem>
             )}
           />
+          {urlError && (
+            <p className="rounded-sm bg-red-100 p-2 text-center text-sm text-red-500">
+              {urlError}
+            </p>
+          )}
           <Button
             disabled={form.formState.isSubmitting || isExecuting}
             type="submit"
