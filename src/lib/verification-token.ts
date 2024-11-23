@@ -9,3 +9,10 @@ export const getVerificationTokenByEmail = async (email: string) =>
     .from(verificationTokens)
     .where(eq(verificationTokens.identifier, email))
     .then((res) => res[0]);
+
+export const getVerificationTokenByToken = async (token: string) =>
+  await db
+    .select()
+    .from(verificationTokens)
+    .where(eq(verificationTokens.token, token))
+    .then((res) => res[0]);
