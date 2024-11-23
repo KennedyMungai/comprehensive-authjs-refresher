@@ -1,17 +1,17 @@
-import BackButton from "@/components/back-button";
-import Header from "@/components/header";
-import { Card, CardFooter, CardHeader } from "@/components/ui/card";
+import CardWrapper from "@/components/card-wrapper";
+import { TriangleAlertIcon } from "lucide-react";
 
 const ErrorCard = () => {
   return (
-    <Card className="w-96 shadow-md">
-      <CardHeader>
-        <Header label="Oops! Something went wrong" />
-      </CardHeader>
-      <CardFooter>
-        <BackButton label="Go back" href="/signin" />
-      </CardFooter>
-    </Card>
+    <CardWrapper
+      headerLabel="Oops! Something went wrong"
+      backButtonHref="/signin"
+      backButtonLabel="Back to Sign In"
+    >
+      <div className="flex w-full items-center justify-center">
+        <TriangleAlertIcon className="text-destructive" />
+      </div>
+    </CardWrapper>
   );
 };
 
