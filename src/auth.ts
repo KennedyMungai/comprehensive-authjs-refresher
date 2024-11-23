@@ -8,10 +8,14 @@ import NextAuth from "next-auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account }) {
+      if (account?.provider !== "credentials") return true;
+
       const existingUser = await findUserById(user.id!);
 
-      if (!existingUser || !existingUser.emailVerified) return false;
+      if (!existingUser?.emailVerified) return false;
+
+      // TODO: Add 2FA check
 
       return true;
     },
