@@ -22,3 +22,9 @@ export const SocialsSchema = z.object({
 });
 
 export type SocialsType = z.infer<typeof SocialsSchema>;
+
+export const PasswordResetSchema = z.object({
+  email: z.string().email().min(1, "Email is required"),
+});
+
+export type PasswordResetType = z.infer<typeof PasswordResetSchema>;
