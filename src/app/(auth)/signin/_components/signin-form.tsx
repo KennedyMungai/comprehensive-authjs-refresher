@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { SigninSchema, SigninType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -103,6 +104,9 @@ const SigninForm = () => {
             Login
           </Button>
         </form>
+        <Button asChild variant={"link"} className="mt-2">
+          <Link href="/signin/password-reset">Forgot Password?</Link>
+        </Button>
       </Form>
     </CardWrapper>
   );
