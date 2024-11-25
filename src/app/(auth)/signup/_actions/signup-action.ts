@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { actionClient } from "@/lib/safe-action";
+import { sendSignupUserEmail } from "@/lib/send-signup-user-email";
 import { generateVerificationToken } from "@/lib/tokens";
 import { findUserByEmail } from "@/lib/user-queries";
 import { SignupSchema } from "@/lib/validation";
@@ -35,7 +36,10 @@ export const registerAction = actionClient
 
       const verificationToken = await generateVerificationToken(newUser.email!);
 
-      // TODO: Send email verification token
+      await sendSignupUserEmail({
+        email: newUser.email!,
+        token: verificationToken.token,
+      });
 
       return { data: newUser };
     },
