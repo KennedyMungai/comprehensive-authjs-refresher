@@ -23,8 +23,19 @@ export const SocialsSchema = z.object({
 
 export type SocialsType = z.infer<typeof SocialsSchema>;
 
-export const PasswordResetSchema = z.object({
+export const ForgotPasswordSchema = z.object({
   email: z.string().email().min(1, "Email is required"),
 });
 
-export type PasswordResetType = z.infer<typeof PasswordResetSchema>;
+export type ForgotPasswordType = z.infer<typeof ForgotPasswordSchema>;
+
+export const PasswordResetSchema = z
+  .object({
+    email: z.string().email().min(1, "Email is required"),
+    password: z.string().min(1, "Password is required"),
+    confirmPassword: z.string().min(1, "Confirm Password is required"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });

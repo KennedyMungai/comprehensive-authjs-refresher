@@ -1,6 +1,5 @@
 "use client";
 
-import { loginAction } from "@/app/(auth)/signin/_actions/signin-action";
 import CardWrapper from "@/components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,35 +11,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { SigninSchema, SigninType } from "@/lib/validation";
+import { ForgotPasswordSchema, ForgotPasswordType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { passwordResetAction } from "../_actions/password-reset-action";
 import { toast } from "sonner";
 
-const SigninForm = () => {
-  const searchParams = useSearchParams();
-  const urlError =
-    searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "Email already in use with a different provider"
-      : "";
-
-  const { execute, isExecuting } = useAction(loginAction, {
-    onSuccess: () => toast.success("Login successful"),
-    onError: () => toast.error("Login failed"),
+const ResetForm = () => {
+  const { execute, isExecuting } = useAction(passwordResetAction, {
+    onSuccess: () => toast.success("Password reset email sent"),
+    onError: () => toast.error("Failed to send password reset email"),
   });
 
-  const form = useForm<SigninType>({
-    resolver: zodResolver(SigninSchema),
+  const form = useForm<ForgotPasswordType>({
+    resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
-  const onSubmit = async (data: SigninType) => {
+  const onSubmit = (data: ForgotPasswordType) => {
     execute(data);
 
     form.reset();
@@ -73,7 +65,7 @@ const SigninForm = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
@@ -95,7 +87,7 @@ const SigninForm = () => {
             <p className="rounded-sm bg-red-100 p-2 text-center text-sm text-red-500">
               {urlError}
             </p>
-          )}
+          )} */}
           <Button
             disabled={form.formState.isSubmitting || isExecuting}
             type="submit"
@@ -105,11 +97,11 @@ const SigninForm = () => {
           </Button>
         </form>
         <Button asChild variant={"link"} className="mt-2">
-          <Link href="/signin/forgot-password">Forgot Password?</Link>
+          <Link href="/signin/password-reset">Forgot Password?</Link>
         </Button>
       </Form>
     </CardWrapper>
   );
 };
 
-export default SigninForm;
+export default ResetForm;
