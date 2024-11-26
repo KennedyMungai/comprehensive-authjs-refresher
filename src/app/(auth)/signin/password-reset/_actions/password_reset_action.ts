@@ -8,6 +8,7 @@ import { actionClient } from "@/lib/safe-action";
 import { findUserByEmail } from "@/lib/user-queries";
 import { PasswordResetSchema } from "@/lib/validation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
 
 export const passwordResetAction = actionClient
@@ -32,9 +33,11 @@ export const passwordResetAction = actionClient
         .where(eq(passwordResetToken.email, email));
     }
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     await signIn("credentials", {
       email,
-      password,
+      password: hashedPassword,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
   });
